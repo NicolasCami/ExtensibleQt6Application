@@ -15,10 +15,22 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools)
 set(TS_FILES extensible-qt6-app-boilerplate_en_GB.ts)
 
 set(PROJECT_SOURCES
+        appimpl.cpp
+        appimpl.h
+        appinterface.h
         main.cpp
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
+        pythoninclude.h
+        pythoninstance.cpp
+        pythoninstance.h
+        pythonmoduleapp.cpp
+        pythonmoduleapp.h
+        pythonmoduleredirect.cpp
+        pythonmoduleredirect.h
+        pythonutils.cpp
+        pythonutils.h
         ${TS_FILES}
 )
 
@@ -58,6 +70,18 @@ set_target_properties(extensible-qt6-app-boilerplate PROPERTIES
     MACOSX_BUNDLE TRUE
     WIN32_EXECUTABLE TRUE
 )
+
+# Avoid clash between Qt and Python (see https://stackoverflow.com/questions/15078060/embedding-python-in-qt-5)
+ADD_DEFINITIONS(-DQT_NO_KEYWORDS)
+
+set(MIN_PYTHON_VERSION "3.7")
+find_package(Python ${MIN_PYTHON_VERSION} REQUIRED COMPONENTS Interpreter Development)
+target_include_directories(${PROJECT_NAME} PRIVATE
+        ${Python_INCLUDE_DIRS})
+target_link_directories(${PROJECT_NAME} PRIVATE
+        ${Python_LIBRARY_DIRS})
+target_link_libraries(${PROJECT_NAME} PRIVATE
+        ${Python_LIBRARIES})
 
 install(TARGETS extensible-qt6-app-boilerplate
     BUNDLE DESTINATION .

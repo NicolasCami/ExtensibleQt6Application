@@ -4,6 +4,9 @@
 #include <QLocale>
 #include <QTranslator>
 
+#include "pythoninstance.h"
+#include "appimpl.h"
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -18,6 +21,12 @@ int main(int argc, char *argv[])
         }
     }
     MainWindow w;
+
+    app::AppImpl appInterface(&w);
+    py::Instance pythonInstance(&appInterface);
+
     w.show();
-    return a.exec();
+    int exitCode = a.exec();
+
+    return exitCode;
 }

@@ -15,6 +15,9 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private Q_SLOTS:
+    void on_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
