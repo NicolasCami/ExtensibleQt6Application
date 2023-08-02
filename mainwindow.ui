@@ -37,9 +37,16 @@
      <item row="2" column="0">
       <widget class="QPlainTextEdit" name="plainTextEdit">
        <property name="plainText">
-        <string>app.setWindowTitle(&quot;Modified from Python&quot;)
+        <string>print(&quot;hello from python&quot;)
 
-print(&quot;hello from python&quot;)</string>
+# Modify existing UI
+app.setWindowTitle(&quot;Modified from Python&quot;)
+
+import _app
+# Call a function implemented in C++
+print(_app.dummyFunction(9))
+
+</string>
        </property>
       </widget>
      </item>

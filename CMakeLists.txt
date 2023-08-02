@@ -18,6 +18,8 @@ set(PROJECT_SOURCES
         appimpl.cpp
         appimpl.h
         appinterface.h
+        apputils.cpp
+        apputils.h
         main.cpp
         mainwindow.cpp
         mainwindow.h

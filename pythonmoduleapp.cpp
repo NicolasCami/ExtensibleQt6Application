@@ -1,5 +1,6 @@
 #include "pythonmoduleapp.h"
 
+#include "apputils.h"
 #include "pythoninclude.h"
 #include "pythonutils.h"
 
@@ -11,7 +12,13 @@ namespace {
 
 static const char* MODULE_NAME = "_app";
 
-static PyMethodDef MethodDef[] = { { NULL, NULL, 0, NULL } };
+PyObject*
+py_dummyFunction(PyObject* self, PyObject* args);
+
+static PyMethodDef MethodDef[] = {
+  { "dummyFunction", py_dummyFunction, METH_VARARGS, "." },
+  { NULL, NULL, 0, NULL }
+};
 
 static PyModuleDef ModuleDef = { PyModuleDef_HEAD_INIT,
                                  MODULE_NAME,
@@ -33,6 +40,16 @@ PyInit()
     return NULL;
 
   return m;
+}
+
+PyObject*
+py_dummyFunction(PyObject* self, PyObject* args)
+{
+  int param;
+  if (!PyArg_ParseTuple(args, "i", &param))
+    return 0;
+  int ret = app::utils::dummyFunction(param);
+  return Py_BuildValue("i", ret);
 }
 
 static bool imported = false;

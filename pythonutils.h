@@ -3,7 +3,6 @@
 #include <string>
 
 class QString;
-class MainWindow;
 
 namespace py {
 
