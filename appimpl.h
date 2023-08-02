@@ -14,6 +14,7 @@ public:
   AppImpl(MainWindow* app);
 
   QWidget* mainWindow() const override;
+  QTextEdit* textOutputWidget() const override;
 
 private:
   MainWindow* m_app{ nullptr };

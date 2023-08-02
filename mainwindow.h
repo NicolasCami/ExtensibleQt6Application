@@ -7,6 +7,7 @@ QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
 }
+class QTextEdit;
 QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
@@ -16,6 +17,8 @@ class MainWindow : public QMainWindow
 public:
   MainWindow(QWidget* parent = nullptr);
   ~MainWindow();
+
+  QTextEdit* textOutputWidget() const;
 
 private Q_SLOTS:
   void on_pushButton_clicked();

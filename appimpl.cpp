@@ -15,4 +15,10 @@ AppImpl::mainWindow() const
   return m_app;
 }
 
+QTextEdit*
+AppImpl::textOutputWidget() const
+{
+  return m_app->textOutputWidget();
+}
+
 } // namespace app

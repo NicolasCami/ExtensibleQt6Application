@@ -15,6 +15,12 @@ MainWindow::~MainWindow()
   delete ui;
 }
 
+QTextEdit*
+MainWindow::textOutputWidget() const
+{
+  return ui->textBrowser;
+}
+
 void
 MainWindow::on_pushButton_clicked()
 {

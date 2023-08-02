@@ -9,6 +9,7 @@
 #include <iostream>
 
 #include <QDebug>
+#include <QTextEdit>
 
 namespace py {
 
@@ -22,8 +23,14 @@ Instance::Instance(::app::IApp* app)
     Py_Initialize();
 
     py::redirect::start(
-      [=](const std::string& str) { std::cout << str << std::flush; },
-      [=](const std::string& str) { std::cout << str << std::flush; },
+      [=](const std::string& str) {
+        std::cout << str << std::flush;
+        app->textOutputWidget()->insertPlainText(QString::fromStdString(str));
+      },
+      [=](const std::string& str) {
+        std::cout << str << std::flush;
+        app->textOutputWidget()->insertPlainText(QString::fromStdString(str));
+      },
       [=]() { std::cout << std::flush; });
     py::app::start(app);
   } catch (std::runtime_error& e) {
