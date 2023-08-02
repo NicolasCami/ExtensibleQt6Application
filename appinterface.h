@@ -6,12 +6,12 @@ namespace app {
 
 class IApp : public QObject
 {
-    Q_OBJECT
+  Q_OBJECT
 
 public:
-    IApp() = default;
+  IApp() = default;
 
-    virtual QWidget* mainWindow() const = 0;
+  virtual QWidget* mainWindow() const = 0;
 };
 
-}
+} // namespace app

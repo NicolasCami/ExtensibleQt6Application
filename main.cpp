@@ -4,29 +4,31 @@
 #include <QLocale>
 #include <QTranslator>
 
-#include "pythoninstance.h"
 #include "appimpl.h"
+#include "pythoninstance.h"
 
-int main(int argc, char *argv[])
+int
+main(int argc, char* argv[])
 {
-    QApplication a(argc, argv);
+  QApplication a(argc, argv);
 
-    QTranslator translator;
-    const QStringList uiLanguages = QLocale::system().uiLanguages();
-    for (const QString &locale : uiLanguages) {
-        const QString baseName = "extensible-qt6-app-boilerplate_" + QLocale(locale).name();
-        if (translator.load(":/i18n/" + baseName)) {
-            a.installTranslator(&translator);
-            break;
-        }
+  QTranslator translator;
+  const QStringList uiLanguages = QLocale::system().uiLanguages();
+  for (const QString& locale : uiLanguages) {
+    const QString baseName =
+      "extensible-qt6-app-boilerplate_" + QLocale(locale).name();
+    if (translator.load(":/i18n/" + baseName)) {
+      a.installTranslator(&translator);
+      break;
     }
-    MainWindow w;
+  }
+  MainWindow w;
 
-    app::AppImpl appInterface(&w);
-    py::Instance pythonInstance(&appInterface);
+  app::AppImpl appInterface(&w);
+  py::Instance pythonInstance(&appInterface);
 
-    w.show();
-    int exitCode = a.exec();
+  w.show();
+  int exitCode = a.exec();
 
-    return exitCode;
+  return exitCode;
 }

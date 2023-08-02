@@ -9,29 +9,30 @@
 
 namespace {
 
-static const char *MODULE_NAME = "_app";
+static const char* MODULE_NAME = "_app";
 
-static PyMethodDef MethodDef[] = {
-    {NULL, NULL, 0, NULL}
-};
+static PyMethodDef MethodDef[] = { { NULL, NULL, 0, NULL } };
 
-static PyModuleDef ModuleDef = {
-    PyModuleDef_HEAD_INIT,
-    MODULE_NAME,
-    NULL,
-    -1,
-    MethodDef,
-    NULL, NULL, NULL, NULL
-};
+static PyModuleDef ModuleDef = { PyModuleDef_HEAD_INIT,
+                                 MODULE_NAME,
+                                 NULL,
+                                 -1,
+                                 MethodDef,
+                                 NULL,
+                                 NULL,
+                                 NULL,
+                                 NULL };
 
-static PyObject *PyInit() {
-    PyObject *m;
+static PyObject*
+PyInit()
+{
+  PyObject* m;
 
-    m = PyModule_Create(&ModuleDef);
-    if (m == NULL)
-        return NULL;
+  m = PyModule_Create(&ModuleDef);
+  if (m == NULL)
+    return NULL;
 
-    return m;
+  return m;
 }
 
 static bool imported = false;
@@ -54,44 +55,50 @@ def initApplicationInterface(pointer):
 
 )###";
 
-}
+} // namespace
 
 namespace py {
 namespace app {
 
-void importModule()
+void
+importModule()
 {
-    if (imported)
-        throw std::runtime_error("Python app module already imported");
+  if (imported)
+    throw std::runtime_error("Python app module already imported");
 
-    int ret = PyImport_AppendInittab(MODULE_NAME, PyInit);
+  int ret = PyImport_AppendInittab(MODULE_NAME, PyInit);
 
-    if (ret < 0)
-        throw std::runtime_error("Failed to import app module");
+  if (ret < 0)
+    throw std::runtime_error("Failed to import app module");
 
-    imported = true;
+  imported = true;
 }
 
-void start(::app::IApp* app)
+void
+start(::app::IApp* app)
 {
-    if (app==nullptr)
-        throw std::runtime_error("Python app module requires an application interface");
+  if (app == nullptr)
+    throw std::runtime_error(
+      "Python app module requires an application interface");
 
-    if (started)
-        throw std::runtime_error("Python app module already started");
+  if (started)
+    throw std::runtime_error("Python app module already started");
 
-    int ret = py::runString(code);
+  int ret = py::runString(code);
 
-    if (ret < 0)
-        throw std::runtime_error("Exception raised during initialization of Python app module");
+  if (ret < 0)
+    throw std::runtime_error(
+      "Exception raised during initialization of Python app module");
 
-    ret = py::runString(QStringLiteral("initApplicationInterface(%1)").arg(reinterpret_cast<quint64>(app->mainWindow())));
+  ret = py::runString(QStringLiteral("initApplicationInterface(%1)")
+                        .arg(reinterpret_cast<quint64>(app->mainWindow())));
 
-    if (ret < 0)
-        throw std::runtime_error("Failed to initialize application interface of Python app module");
+  if (ret < 0)
+    throw std::runtime_error(
+      "Failed to initialize application interface of Python app module");
 
-    started = true;
+  started = true;
 }
 
-} // app
-} // py
+} // namespace app
+} // namespace py

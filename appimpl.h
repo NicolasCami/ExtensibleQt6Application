@@ -8,15 +8,15 @@ namespace app {
 
 class AppImpl : public IApp
 {
-    Q_OBJECT
+  Q_OBJECT
 
 public:
-    AppImpl(MainWindow* app);
+  AppImpl(MainWindow* app);
 
-    QWidget* mainWindow() const override;
+  QWidget* mainWindow() const override;
 
 private:
-    MainWindow* m_app{nullptr};
+  MainWindow* m_app{ nullptr };
 };
 
-}
+} // namespace app

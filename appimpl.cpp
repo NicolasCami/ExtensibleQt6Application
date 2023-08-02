@@ -4,15 +4,15 @@
 
 namespace app {
 
-AppImpl::AppImpl(MainWindow *app)
-    : m_app(app)
+AppImpl::AppImpl(MainWindow* app)
+  : m_app(app)
 {
-
 }
 
-QWidget *AppImpl::mainWindow() const
+QWidget*
+AppImpl::mainWindow() const
 {
-    return m_app;
+  return m_app;
 }
 
-}
+} // namespace app
