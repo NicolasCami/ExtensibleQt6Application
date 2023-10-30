@@ -10,7 +10,7 @@
 
 namespace {
 
-static const char* MODULE_NAME = "_app";
+static const char* MODULE_NAME = "application_api";
 
 PyObject*
 py_dummyFunction(PyObject* self, PyObject* args);
@@ -60,15 +60,15 @@ static std::string code = R"###(
 #sys.path.append('.../extensible-qt6-app-boilerplate/build/BoilerplateQtApp')
 
 # initialize 'iface' object
-app = None
+main_window = None
 
 def initApplicationInterface(pointer):
     from PyQt6.QtWidgets import QMainWindow
     from PyQt6.sip import wrapinstance
     #import BoilerplateQtApp
 
-    global app
-    app = wrapinstance(pointer, QMainWindow)
+    global main_window
+    main_window = wrapinstance(pointer, QMainWindow)
 
 )###";
 

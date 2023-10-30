@@ -37,11 +37,11 @@
         <string>print(&quot;hello from python&quot;)
 
 # Modify existing UI
-app.setWindowTitle(&quot;Modified from Python&quot;)
+main_window.setWindowTitle(&quot;Modified from Python&quot;)
 
-import _app
+import application_api
 # Call a function implemented in C++
-print(_app.dummyFunction(9))
+print(application_api.dummyFunction(9))
 
 </string>
        </property>
